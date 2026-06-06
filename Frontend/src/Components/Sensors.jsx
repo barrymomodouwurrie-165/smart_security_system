@@ -2,8 +2,8 @@ import { GoDotFill } from "react-icons/go";
 
 const Sensors = () => {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-2.5">
-      <div className="max-w-2xl mx-auto px-2">
+    <div className="max-w-4xl mx-auto pl-4 py-2.5">
+      <div className="max-w-4xl mx-auto px-2">
         <div className="grid grid-cols-2 gap-2 justify-center pl-[20%] md:grid-cols-4 md:px-4">
           <div className=" bg-[#002147]/20 w-[8rem] flex flex-col items-center justify-center gap-1 border border-primary/50 rounded-md py-2">
             <GoDotFill
