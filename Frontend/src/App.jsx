@@ -1,5 +1,6 @@
 import Dashboard from "./Pages/Dashboard";
 import LoginPage from "./Pages/LoginPage";
+import ChangeCode from "./Pages/ChangeCode";
 import { Routes, Route } from "react-router";
 import "./App.css";
 
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/change-code" element={<ChangeCode />} />
       </Routes>
     </div>
   );

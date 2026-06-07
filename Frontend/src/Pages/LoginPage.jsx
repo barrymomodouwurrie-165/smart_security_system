@@ -1,4 +1,5 @@
 import { RiShieldKeyholeFill } from "react-icons/ri";
+import { FaEye } from "react-icons/fa";
 const LoginPage = () => {
   return (
     <div className="min-h-screen">
@@ -10,13 +11,13 @@ const LoginPage = () => {
             </h1>
             <RiShieldKeyholeFill size={360} className="text-blue-600" />
           </div>
-          <div className="border border-base-content/20 rounded-lg h-96 ">
+          <div className="border border-blue-500/20 rounded-lg h-96 ">
             <div className="card-body">
               <h1 className="card-title font-serif mx-auto">WELCOME BACK</h1>
               <div className="form-control">
                 <label className="label">
                   <h1 className="label-text font-bold">
-                    Enter your 6-digit code:
+                    Enter your 6-digit Pin:
                   </h1>
                 </label>
                 <div className="flex items-center justify-between gap-1 pb-3">
@@ -26,7 +27,8 @@ const LoginPage = () => {
                     placeholder="6-digit-code"
                   />
                   <button className="btn btn-outline text-primary">
-                    Show Code
+                    <FaEye size={16} className="text-white hover:text-black" />
+                    Show
                   </button>
                 </div>
               </div>
