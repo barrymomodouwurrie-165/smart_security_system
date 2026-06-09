@@ -1,6 +1,29 @@
 import { RiShieldKeyholeFill } from "react-icons/ri";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaRegEyeSlash } from "react-icons/fa";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+
 const LoginPage = () => {
+  const [pin, setPin] = useState("");
+  const [visible, setVisible] = useState("false");
+  const [isVisible, setIsvisible] = useState("Show");
+  const [eye, setEye] = useState(true);
+
+  const handleInputType = () => {
+    if (isVisible === "Show") {
+      setVisible(false);
+      setEye(false);
+      setIsvisible("Hide");
+    }
+    if (isVisible === "Hide") {
+      setVisible(true);
+      setEye(true);
+      setIsvisible("Show");
+    }
+  };
+
+  const handleLogin = () => {};
+
   return (
     <div className="min-h-screen">
       <div className="max-w-5xl mx-auto p-4 flex items-center justify-center">
@@ -22,18 +45,34 @@ const LoginPage = () => {
                 </label>
                 <div className="flex items-center justify-between gap-1 pb-3">
                   <input
-                    type="password"
+                    type={visible ? "password" : "text"}
                     className="input input-bordered flex-1 bg-base-content/30"
                     placeholder="6-digit-code"
                   />
-                  <button className="btn btn-outline text-primary">
-                    <FaEye size={16} className="text-white hover:text-black" />
-                    Show
+                  <button
+                    className="btn btn-outline text-primary"
+                    onClick={handleInputType}
+                  >
+                    {eye ? (
+                      <FaRegEyeSlash
+                        size={16}
+                        className="text-white hover:text-black"
+                      />
+                    ) : (
+                      <FaEye
+                        size={16}
+                        className="text-white hover:text-black"
+                      />
+                    )}
+                    {isVisible}
                   </button>
                 </div>
               </div>
               <div className="card-actions justify-center">
-                <button className="btn btn-primary px-40 font-bold">
+                <button
+                  className="btn btn-primary px-40 font-bold"
+                  onClick={handleLogin}
+                >
                   Login
                 </button>
               </div>
