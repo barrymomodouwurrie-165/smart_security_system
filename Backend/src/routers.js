@@ -4,7 +4,19 @@ import bcrypt from "bcrypt";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.get("/", async (req, res) => {
+  try {
+    const getPin = await Code.find();
+    if (!getPin) {
+      return res.status(404).json({ message: "No pin found" });
+    }
+    return res.status(200).json({ getPin });
+  } catch (error) {
+    res.status(500).json({ message: "Internal error", error: error.message });
+  }
+});
+
+router.post("/create", async (req, res) => {
   const { pin } = req.body;
   if (!/^\d{6}$/.test(pin)) {
     return res.status(400).json({ message: "PIN must be exactly 6 digits" });
@@ -23,8 +35,6 @@ router.post("/login", async (req, res) => {
   const { pin } = req.body;
   try {
     const user = await Code.findOne();
-    console.log({ "entered pin": pin });
-    console.log({ "saved pin": user.pin });
     if (!user) {
       return res.status(400).json({ Message: "User not found" });
     }
@@ -33,6 +43,29 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ Message: "Incorrect Pin" });
     }
     return res.status(200).json({ Message: "User logged in successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal error", error: error.message });
+  }
+});
+
+router.put("/update/:id", async (req, res) => {
+  const { pin } = req.body;
+  if (!/^\d{6}$/.test(pin)) {
+    return res.status(400).json({ message: "PIN must be exactly 6 digits" });
+  }
+  try {
+    const hashedPin = await bcrypt.hash(pin, 10);
+    const updatedPin = await Code.findByIdAndUpdate(
+      req.params.id,
+      {
+        pin: hashedPin,
+      },
+      { new: true },
+    );
+    if (!updatedPin) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ message: "Pin updated successfully" });
   } catch (error) {
     res.status(500).json({ message: "Internal error", error: error.message });
   }
