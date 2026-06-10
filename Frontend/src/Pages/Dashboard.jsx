@@ -9,11 +9,11 @@ const Dashboard = () => {
     <div className="min-h-screen">
       <Navbar />
       <div className="max-w-3xl mx-auto">
-        <div className="max-w-[18rem] sm:max-w-xl mx-auto px-2 py-8 grid sm:flex items-center gap-2">
+        <div className="max-w-[18rem] sm:max-w-xl mx-auto px-2 py-16 grid sm:flex items-center gap-2">
           <span className="text-xs font-mono font-bold text-base-content/60 text-center">
             Simulate:
           </span>
-          <div className="border border-solid rounded-md px-4 py-1 text-sm text-center font-bold font-serif ">
+          <div className="bg-primary/20 text-primary border border-solid rounded-md px-4 py-1 text-sm text-center font-bold font-serif ">
             NORMAL
           </div>
           <div className="border border-solid rounded-md px-4 py-1 text-sm text-center font-bold font-serif">

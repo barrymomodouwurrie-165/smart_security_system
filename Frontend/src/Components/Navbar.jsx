@@ -1,4 +1,4 @@
-import { MdFiberManualRecord} from "react-icons/md";
+import { MdFiberManualRecord } from "react-icons/md";
 import { RiShieldKeyholeFill } from "react-icons/ri";
 
 const Navbar = () => {
@@ -17,13 +17,20 @@ const Navbar = () => {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <p className="text-xs font-mono font-bold text-base-content/70">
-              Date:Monday, 8th June 2026 Time:17:39:41 GMT
-            </p>
-            <div className="flex items-center gap-1 bg-primary/30 border-primary border-solid border rounded-lg justify-center px-3 text-primary font-serif">
-              <MdFiberManualRecord size={12} />
-              <span>LIVE</span>
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              <p className="text-xs font-mono font-bold text-base-content/70">
+                Date:Monday, 8th June 2026 Time:17:39:41 GMT
+              </p>
+              <div className="flex items-center gap-1 bg-primary/30 border-primary border-solid border rounded-lg justify-center px-3 text-primary font-serif">
+                <MdFiberManualRecord size={12} />
+                <span>LIVE</span>
+              </div>
+            </div>
+            <div className="flex justify-end mt-1">
+              <button className="btn btn-outline text-primary">
+                Logout
+              </button>
             </div>
           </div>
         </div>
