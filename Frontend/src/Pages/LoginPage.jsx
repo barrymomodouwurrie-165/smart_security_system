@@ -95,7 +95,12 @@ const LoginPage = () => {
                 </button>
               </div>
               <h2 className="font-bold text-base-content/70 mx-auto">OR</h2>
-              <button className="btn btn-success font-bold">Change Code</button>
+              <button
+                className="btn btn-success font-bold"
+                onClick={() => navigate("/change-code")}
+              >
+                Change Code
+              </button>
             </div>
           </div>
         </div>
