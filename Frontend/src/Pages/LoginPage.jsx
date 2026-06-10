@@ -1,28 +1,48 @@
 import { RiShieldKeyholeFill } from "react-icons/ri";
 import { FaEye, FaRegEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 const LoginPage = () => {
   const [pin, setPin] = useState("");
   const [visible, setVisible] = useState("false");
-  const [isVisible, setIsvisible] = useState("Show");
   const [eye, setEye] = useState(true);
+  const navigate = useNavigate();
 
   const handleInputType = () => {
-    if (isVisible === "Show") {
+    if (eye === true) {
       setVisible(false);
       setEye(false);
-      setIsvisible("Hide");
     }
-    if (isVisible === "Hide") {
+    if (eye === false) {
       setVisible(true);
       setEye(true);
-      setIsvisible("Show");
     }
   };
 
-  const handleLogin = () => {};
+  const handleLogin = async () => {
+    if (!pin.trim()) {
+      return toast.error(
+        "Sorry! PIN should not be empty. Enter the PIN to login",
+      );
+    }
+    try {
+      const res = await axios.post("http://localhost:4000/api/user/login", {
+        pin,
+      });
+      if (res?.status === 200) {
+        navigate("/dashboard");
+        setPin("");
+      }
+    } catch (error) {
+      if (error.response?.status === 400) {
+        toast.error("User not found or Incorrect PIN");
+      }
+      console.log({ error });
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -48,23 +68,21 @@ const LoginPage = () => {
                     type={visible ? "password" : "text"}
                     className="input input-bordered flex-1 bg-base-content/30"
                     placeholder="6-digit-code"
+                    maxLength={6}
+                    onChange={(e) => {
+                      setPin(e.target.value.replace(/\D/g, ""));
+                    }}
+                    value={pin}
                   />
                   <button
-                    className="btn btn-outline text-primary"
+                    className="btn btn-ghost text-primary"
                     onClick={handleInputType}
                   >
                     {eye ? (
-                      <FaRegEyeSlash
-                        size={16}
-                        className="text-white hover:text-black"
-                      />
+                      <FaRegEyeSlash size={16} className="text-white" />
                     ) : (
-                      <FaEye
-                        size={16}
-                        className="text-white hover:text-black"
-                      />
+                      <FaEye size={16} className="text-white" />
                     )}
-                    {isVisible}
                   </button>
                 </div>
               </div>
