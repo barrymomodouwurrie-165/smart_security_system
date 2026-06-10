@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const getPin = await Code.find();
+    const getPin = await Code.findOne();
     if (!getPin) {
       return res.status(404).json({ message: "No pin found" });
     }
@@ -49,8 +49,8 @@ router.post("/login", async (req, res) => {
 });
 
 router.put("/update/:id", async (req, res) => {
-  const { currentPin, newPin } = req.body;
-  if (!/^\d{6}$/.test(currentPin) || !/^\d{6}$/.test(newPin)) {
+  const { currentPin, confirmedPin } = req.body;
+  if (!/^\d{6}$/.test(currentPin) || !/^\d{6}$/.test(confirmedPin)) {
     return res.status(400).json({ message: "PIN must be exactly 6 digits" });
   }
   try {
@@ -61,15 +61,15 @@ router.put("/update/:id", async (req, res) => {
     const isMatched = await bcrypt.compare(currentPin, user.pin);
     if (!isMatched) {
       return res
-        .status(400)
+        .status(401)
         .json({ message: "Your current PIN is wrong, Try again!" });
     }
-    const hashedPin = await bcrypt.hash(newPin, 10);
+    const hashedPin = await bcrypt.hash(confirmedPin, 10);
     const updatedPin = await Code.findByIdAndUpdate(req.params.id, {
       pin: hashedPin,
-    });     
+    });
     if (!updatedPin) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Failed to update" });
     }
     res.status(200).json({ message: "Pin updated successfully" });
   } catch (error) {
