@@ -1,6 +1,8 @@
 import express from "express";
-import Code from "./models/pinModel.js";
+import Code from "../models/pinModel.js";
 import bcrypt from "bcrypt";
+import { createAccessToken, createRefreshToken } from "../routers/tokens.js";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -42,7 +44,20 @@ router.post("/login", async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ Message: "Incorrect Pin" });
     }
-    return res.status(200).json({ Message: "User logged in successfully" });
+    const accessToken = createAccessToken(user);
+    const refreshToken = await createRefreshToken(user);
+
+    const { pin: _, ...safeUser } = user.toObject();
+    return res
+      .status(200)
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true, // Not accessible via JavaScript (protects against XSS)
+        path: "/refresh_token",
+        secure: true, // Use true if on HTTPS
+        sameSite: "strict", // Protects against CSRF
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+      })
+      .json({ accessToken, safeUser });
   } catch (error) {
     res.status(500).json({ message: "Internal error", error: error.message });
   }
@@ -74,6 +89,46 @@ router.put("/update/:id", async (req, res) => {
     res.status(200).json({ message: "Pin updated successfully" });
   } catch (error) {
     res.status(500).json({ message: "Internal error", error: error.message });
+  }
+});
+
+router.post("/logout", (req, res) => {
+  try {
+    res.clearCookie("refreshToken", { path: "/refresh_token" });
+    return res.status(200).json({ Message: "Logged out" });
+  } catch (error) {
+    return res.status(500).json({ Message: "Internal error", error });
+  }
+});
+
+router.post("/refresh_token", async (req, res) => {
+  const token = req.cookies.refreshToken;
+  if (!token) {
+    return res.send({ accessToken: "" });
+  }
+  let payload = "";
+  try {
+    payload = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+    const user = await Code.findById(payload._id);
+
+    if (!user || user.refreshToken !== token) {
+      return res.send({ accessToken: "" });
+    }
+    const accessToken = createAccessToken(user);
+    const refreshToken = await createRefreshToken(user);
+    const { pin: _, ...safeUser } = user.toObject();
+    return res
+      .status(200)
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true, // Not accessible via JavaScript (protects against XSS)
+        path: "/refresh_token",
+        secure: true, // Use true if on HTTPS
+        sameSite: "strict", // Protects against CSRF
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+      })
+      .json({ accessToken, safeUser });
+  } catch (error) {
+    return res.send({ accessToken: "" });
   }
 });
 
