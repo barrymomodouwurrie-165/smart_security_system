@@ -1,7 +1,9 @@
 import { MdFiberManualRecord } from "react-icons/md";
 import { RiShieldKeyholeFill } from "react-icons/ri";
+import { useAuth } from "../useContext/userContext";
 
 const Navbar = () => {
+  const { handleLogout } = useAuth();
   return (
     <div className="w-full mb-20">
       <div className=" bg-[#002147] py-3 border-b border-solid border-base-content/10 fixed top-0 left-0 right-0 z-50">
@@ -28,7 +30,10 @@ const Navbar = () => {
               </div>
             </div>
             <div className="flex justify-end mt-1">
-              <button className="btn btn-outline text-primary">
+              <button
+                onClick={handleLogout}
+                className="btn btn-outline text-primary"
+              >
                 Logout
               </button>
             </div>

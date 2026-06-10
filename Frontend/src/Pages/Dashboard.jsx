@@ -1,3 +1,6 @@
+import { useAuth } from "../useContext/userContext";
+// import { useNavigate } from "react-router";
+import { Navigate } from "react-router";
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
 import Sensors from "../Components/Sensors";
@@ -5,6 +8,9 @@ import Status from "../Components/Status";
 import SystemActions from "../Components/SystemActions";
 
 const Dashboard = () => {
+  const { user } = useAuth();
+  // const navigate = useNavigate();
+  if (!user?.accessToken) return <Navigate to="/" replace />;
   return (
     <div className="min-h-screen">
       <Navbar />
