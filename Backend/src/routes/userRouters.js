@@ -1,7 +1,7 @@
 import express from "express";
 import Code from "../models/pinModel.js";
 import bcrypt from "bcrypt";
-import { createAccessToken, createRefreshToken } from "../routers/tokens.js";
+import { createAccessToken, createRefreshToken } from "./tokens.js";
 import jwt from "jsonwebtoken";
 
 const router = express.Router();
