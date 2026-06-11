@@ -6,6 +6,10 @@ const PinSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    refreshToken: {
+      type: String,
+      default: null,
+    },
   },
   { createdAt: true },
 );

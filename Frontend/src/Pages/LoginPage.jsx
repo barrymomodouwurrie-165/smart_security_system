@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../useContext/userContext";
 
 const LoginPage = () => {
-  // const [pin, setPin] = useState("");
   const [visible, setVisible] = useState("false");
   const [eye, setEye] = useState(true);
   const navigate = useNavigate();
@@ -23,27 +22,6 @@ const LoginPage = () => {
     }
   };
 
-  // const handleLogin = async () => {
-  //   if (!pin.trim()) {
-  //     return toast.error(
-  //       "Sorry! PIN should not be empty. Enter the PIN to login",
-  //     );
-  //   }
-  //   try {
-  //     const res = await axios.post("http://localhost:4000/api/user/login", {
-  //       pin,
-  //     });
-  //     if (res?.status === 200) {
-  //       navigate("/dashboard");
-  //       setPin("");
-  //     }
-  //   } catch (error) {
-  //     if (error.response?.status === 400) {
-  //       toast.error("User not found or Incorrect PIN");
-  //     }
-  //     console.log({ error });
-  //   }
-  // };
 
   return (
     <div className="min-h-screen">
