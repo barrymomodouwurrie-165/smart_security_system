@@ -1,9 +1,13 @@
 import { MdFiberManualRecord } from "react-icons/md";
 import { RiShieldKeyholeFill } from "react-icons/ri";
 import { useAuth } from "../useContext/userContext";
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 
-const Navbar = () => {
+
+const Navbar = ({ timeInMs }) => {
   const { handleLogout } = useAuth();
+  dayjs.extend(advancedFormat);
   return (
     <div className="w-full mb-20">
       <div className=" bg-[#002147] py-3 border-b border-solid border-base-content/10 fixed top-0 left-0 right-0 z-50">
@@ -22,7 +26,7 @@ const Navbar = () => {
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <p className="text-xs font-mono font-bold text-base-content/70">
-                Date:Monday, 8th June 2026 Time:17:39:41 GMT
+                {`Date:${dayjs(timeInMs).format("dddd, Do MMMM YYYY")} Time:${dayjs(timeInMs).format("HH:mm:ss [GMT]")}`}
               </p>
               <div className="flex items-center gap-1 bg-primary/30 border-primary border-solid border rounded-lg justify-center px-3 text-primary font-serif">
                 <MdFiberManualRecord size={12} />
