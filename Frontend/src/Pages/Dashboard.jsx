@@ -10,7 +10,7 @@ import Status from "../Components/Status";
 import SystemActions from "../Components/SystemActions";
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, event, status } = useAuth();
   const [timeInMs, setTimeInMs] = useState(dayjs().valueOf());
   const [now, setNow] = useState(dayjs());
 
