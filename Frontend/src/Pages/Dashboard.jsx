@@ -9,17 +9,17 @@ import Sensors from "../Components/Sensors";
 import Status from "../Components/Status";
 import SystemActions from "../Components/SystemActions";
 
-const Dashboard = () => {
-  const { user, event, status } = useAuth();
+const Dashboard = ({ event, status, message }) => {
+  const { user } = useAuth();
   const [timeInMs, setTimeInMs] = useState(dayjs().valueOf());
   const [now, setNow] = useState(dayjs());
 
   useEffect(() => {
     const timer = setInterval(() => {
       setNow(dayjs());
-    }, 1000); 
+    }, 1000);
 
-    return () => clearInterval(timer); 
+    return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -48,9 +48,9 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <Status />
-      <Sensors />
-      <SystemActions />
+      <Status event={event} status={status} message={message} />
+      <Sensors statu={status} />
+      <SystemActions event={event} />
       <Footer now={now} />
     </div>
   );

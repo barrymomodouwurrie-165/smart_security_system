@@ -1,12 +1,5 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable react-refresh/only-export-components */
-import {
-  useContext,
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -25,40 +18,8 @@ export const AuthProvider = ({ children }) => {
   const [confirmedPin, setConfirmedPin] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [pinId, setPinId] = useState(null);
-  const [event, setEvent] = useState(null);
-  const [status, setStatus] = useState("NORMAL");
-  // const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-
-  //Function to get the event logs from the ESP32 at the backend.
-  const getEventLogs = useCallback(async () => {
-    try {
-      const res = await axios.get("http://localhost:4000/api/event");
-      const data = res.data;
-      setEvent(data);
-
-      if (data.length > 0) {
-        const latest = data[0];
-        if (latest.type === "warn") {
-          setStatus("SUSPICIOUS");
-        } else if (latest.type === "danger") {
-          setStatus("INTRUTION");
-        } else {
-          setStatus("NORMAL");
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
-  useEffect(() => {
-    getEventLogs();
-    const interval = setInterval(getEventLogs, 3000);
-    return () => clearInterval(interval);
-  }, [getEventLogs]);
-
   useEffect(() => {
     localStorage.setItem("userData", JSON.stringify(user));
   }, [user]);
@@ -189,8 +150,6 @@ export const AuthProvider = ({ children }) => {
         confirmedPin,
         setConfirmedPin,
         isSaving,
-        event,
-        status,
       }}
     >
       {children}

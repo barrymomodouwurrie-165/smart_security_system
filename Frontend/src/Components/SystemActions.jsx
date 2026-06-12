@@ -1,7 +1,7 @@
 import { MdSensors, MdInsertDriveFile } from "react-icons/md";
 import { GoDotFill } from "react-icons/go";
 
-const SystemActions = () => {
+const SystemActions = ({ event }) => {
   return (
     <div className="max-w-4xl mx-auto p-2">
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -52,17 +52,23 @@ const SystemActions = () => {
             <MdInsertDriveFile />
             <span className="text-sm font-mono">EVENT LOG</span>
           </div>
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-xs font-mono text-base-content/70">
-              17:18:35
-            </span>
-            <p className="font-bold text-sm flex-1">
-              System initialized. All sensors online.
-            </p>
-            <span className="text-sm font-bold px-2.5 bg-primary/30 rounded-lg text-primary">
-              OK
-            </span>
-          </div>
+          {event &&
+            event.map((item) => {
+              return (
+                <div
+                  key={item._id}
+                  className="flex items-center justify-between gap-2"
+                >
+                  <span className="text-xs font-mono text-base-content/70">
+                    {new Date(item.date).toLocaleTimeString("en-GB")}
+                  </span>
+                  <p className="font-bold text-sm flex-1">{item.message}</p>
+                  <span className="text-xs font-bold px-2.5 bg-primary/30 rounded-md text-primary">
+                    {item.type}
+                  </span>
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>

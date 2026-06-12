@@ -16,7 +16,7 @@ eRouter.post("/", async (req, res) => {
 
 eRouter.get("/", async (req, res) => {
   try {
-    const events = await Event.find().sort({ date: -1 }).limit(5);
+    const events = await Event.find().sort({ date: -1 }).limit(4);
     if (!events)
       return res.status(400).json({ Message: "Failed to get  events" });
     return res.status(200).json(events);
