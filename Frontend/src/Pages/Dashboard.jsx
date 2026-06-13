@@ -50,7 +50,7 @@ const Dashboard = ({ event, status, message }) => {
       </div>
       <Status event={event} status={status} message={message} />
       <Sensors statu={status} />
-      <SystemActions event={event} />
+      <SystemActions event={event} status={status} />
       <Footer now={now} />
     </div>
   );
