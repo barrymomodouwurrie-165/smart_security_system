@@ -27,6 +27,16 @@ const Dashboard = ({ event, status, message }) => {
       setTimeInMs(dayjs().valueOf());
     }, 1000);
   }, []);
+  const normalStyles = {
+    normal: "bg-green-500/10 text-green-400 border-primary/20",
+  };
+
+  const suspiciousStyles = {
+    suspicious: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+  };
+  const intrusionStyles = {
+    intrution: "bg-red-500/10 text-red-400 border-red-500/30",
+  };
 
   if (!user?.accessToken) return <Navigate to="/" replace />;
   return (
@@ -37,19 +47,25 @@ const Dashboard = ({ event, status, message }) => {
           <span className="text-xs font-mono font-bold text-base-content/60 text-center">
             Simulate:
           </span>
-          <div className="bg-primary/20 text-primary border border-solid rounded-md px-4 py-1 text-sm text-center font-bold font-serif ">
+          <div
+            className={`border border-solid ${normalStyles[status] || "bg-base-content/20 text-base-content/70 border-base-content/20"} rounded-md px-4 py-1 text-sm text-center font-bold font-serif `}
+          >
             NORMAL
           </div>
-          <div className="border border-solid rounded-md px-4 py-1 text-sm text-center font-bold font-serif">
+          <div
+            className={`border border-solid ${suspiciousStyles[status] || "bg-base-content/20 text-base-content/70 border-base-content/20"} rounded-md px-4 py-1 text-sm text-center font-bold font-serif `}
+          >
             SUSPICIOUS
           </div>
-          <div className="border border-solid rounded-md px-4 py-1 text-sm text-center font-bold font-serif">
+          <div
+            className={`border border-solid ${intrusionStyles[status] || "bg-base-content/20 text-base-content/70 border-base-content/20"} rounded-md px-4 py-1 text-sm text-center font-bold font-serif `}
+          >
             INTRUSION
           </div>
         </div>
       </div>
       <Status event={event} status={status} message={message} />
-      <Sensors statu={status} />
+      <Sensors status={status} />
       <SystemActions event={event} status={status} />
       <Footer now={now} />
     </div>

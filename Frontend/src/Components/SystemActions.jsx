@@ -66,7 +66,11 @@ const SystemActions = ({ event, status }) => {
             <span
               className={`text-xs font-bold ${sensStyles[status] || "text-primary bg-primary/30"} rounded-lg px-2`}
             >
-              Clear
+              {status === "normal"
+                ? "Clear"
+                : status === "suspicious"
+                  ? "Motion"
+                  : "Triggered"}
             </span>
           </div>
           <div className="flex items-center justify-between border-b border-base-content/20 py-1">
@@ -80,7 +84,11 @@ const SystemActions = ({ event, status }) => {
             <span
               className={`text-xs font-bold ${sensStyles[status] || "text-primary bg-primary/30"} rounded-lg px-2`}
             >
-              Closed
+              {status === "normal"
+                ? "Closed"
+                : status === "suspicious"
+                  ? "Opened"
+                  : "Forced"}
             </span>
           </div>
           <div className="flex items-center justify-between border-b border-base-content/20 py-1">
@@ -94,7 +102,11 @@ const SystemActions = ({ event, status }) => {
             <span
               className={`text-xs font-bold ${tamperStyles[status] || "text-base-content/70 bg-base-content/30"} rounded-lg px-2`}
             >
-              Secured
+              {status === "normal"
+                ? "Secured"
+                : status === "suspicious"
+                  ? "Secured"
+                  : "Tampered"}
             </span>
           </div>
           <div className="flex items-center justify-between py-1">
@@ -103,7 +115,11 @@ const SystemActions = ({ event, status }) => {
               <span className="text-sm">Wi-Fi Link</span>
             </div>
             <span className="text-xs text-primary font-bold bg-primary/30 rounded-lg px-2">
-              Connected
+              {status === "normal"
+                ? "Connected"
+                : status === "suspicious"
+                  ? "Connected"
+                  : "Alerting"}
             </span>
           </div>
         </div>

@@ -29,7 +29,10 @@ const Navbar = ({ timeInMs }) => {
                 {`Date:${dayjs(timeInMs).format("dddd, Do MMMM YYYY")} Time:${dayjs(timeInMs).format("HH:mm:ss [GMT]")}`}
               </p>
               <div className="flex items-center gap-1 bg-primary/30 border-primary border-solid border rounded-lg justify-center px-3 text-primary font-serif">
-                <MdFiberManualRecord size={12} />
+                <MdFiberManualRecord
+                  size={12}
+                  className="text-green-500 drop-shadow-[0_0_6px_#00ff00] animate-pulse"
+                />
                 <span>LIVE</span>
               </div>
             </div>
