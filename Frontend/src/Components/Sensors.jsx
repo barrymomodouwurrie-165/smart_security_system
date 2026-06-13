@@ -19,7 +19,6 @@ const Sensors = ({ status }) => {
   const intrutionIconStyles = {
     intrution: "text-red-500 drop-shadow-[0_0_6px_#ef4444] animate-pulse",
   };
-  // console.log(status)
   return (
     <div className="max-w-6xl mx-auto px-4 py-2">
       <div className="max-w-4xl mx-auto px-4">
@@ -28,7 +27,7 @@ const Sensors = ({ status }) => {
             className={` bg-[#002147]/20 w-[8rem] flex flex-col items-center justify-center gap-1 border border-solid ${normalStyles[status] || "border-base-content/20"} rounded-md py-2`}
           >
             <GoDotFill
-              size={24}
+              size={30}
               className={`${normalIconStyles[status] || "text-base-content/20"}`}
             />
             <p className="text-sm text-base-content/70">GREEN</p>
@@ -40,7 +39,7 @@ const Sensors = ({ status }) => {
             className={` bg-[#002147]/20 w-[8rem] flex flex-col items-center justify-center gap-1 border border-solid ${suspiciousStyles[status] || "border-base-content/20"} rounded-md py-2`}
           >
             <GoDotFill
-              size={24}
+              size={30}
               className={`${suspiciousIconStyles[status] || "text-base-content/20"}`}
             />
             <p className="text-sm text-base-content/70">AMBER</p>
@@ -52,7 +51,7 @@ const Sensors = ({ status }) => {
             className={` bg-[#002147]/20 w-[8rem] flex flex-col items-center justify-center gap-1 border border-solid ${intrusionStyles[status] || "border-base-content/20"} rounded-md py-2`}
           >
             <GoDotFill
-              size={24}
+              size={30}
               className={`${intrutionIconStyles[status] || "text-base-content/20"}`}
             />
             <p className="text-sm text-base-content/70">RED</p>
@@ -64,7 +63,7 @@ const Sensors = ({ status }) => {
             className={` bg-[#002147]/20 w-[8rem] flex flex-col items-center justify-center gap-1 border border-solid ${intrusionStyles[status] || "border-base-content/20"} rounded-md py-2`}
           >
             <GoDotFill
-              size={24}
+              size={30}
               className={`${intrutionIconStyles[status] || "text-base-content/20"}`}
             />
             <p className="text-sm text-base-content/70">BUZZER</p>

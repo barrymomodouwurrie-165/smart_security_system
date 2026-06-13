@@ -1,30 +1,7 @@
 import { MdSensors, MdInsertDriveFile } from "react-icons/md";
 import { GoDotFill } from "react-icons/go";
-// import { useState } from "react";
 
 const SystemActions = ({ event, status }) => {
-  // const [motion, setMotion] = useState("Clear");
-  // const [door, setDoor] = useState("Closed");
-  // const [temper, setTemper] = useState("Secure");
-  // const [wifi, setWifi] = useState("Connected");
-
-  // if (status === "intrution") {
-  //   setMotion("Triggered");
-  //   setDoor("Forced");
-  //   setTemper("TAMPERED");
-  //   setWifi("Alerting");
-  // } else if (status === "suspicious") {
-  //   setMotion("Motion");
-  //   setDoor("Opened");
-  //   setTemper("Secure");
-  //   setWifi("Connected");
-  // } else {
-  //   setMotion("Clear");
-  //   setDoor("Closed");
-  //   setTemper("Secure");
-  //   setWifi("Connected");
-  // }
-
   const typeStyles = {
     ok: "bg-green-500/30 text-green-400",
     warn: "bg-amber-500/30 text-amber-400",
