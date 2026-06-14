@@ -1,5 +1,9 @@
 import express from "express";
 import Event from "../models/events.js";
+import {
+  countIncrementAlert,
+  getCountAlert,
+} from "../utiles/countEventsIncrement.js";
 
 const eRouter = express.Router();
 
@@ -8,7 +12,8 @@ eRouter.post("/", async (req, res) => {
   try {
     const event = new Event({ message, type, date: new Date() });
     await event.save();
-    res.status(201).json({ success: true });
+    const count = await countIncrementAlert();
+    res.status(201).json({ success: true, count });
   } catch (error) {
     res.status(500).json({ message: "Internal Error", error });
   }
@@ -23,6 +28,11 @@ eRouter.get("/", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Internal Error", error });
   }
+});
+
+eRouter.get("/count", async (req, res) => {
+  const count = await getCountAlert();
+  res.status(200).json({ count });
 });
 
 export default eRouter;
