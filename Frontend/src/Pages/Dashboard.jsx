@@ -11,15 +11,16 @@ import SystemActions from "../Components/SystemActions";
 const Dashboard = ({ event, status, message }) => {
   const { user } = useAuth();
   const [timeInMs, setTimeInMs] = useState(dayjs().valueOf());
-  const [now, setNow] = useState(dayjs());
+  const [startTime] = useState(() => Date.now());
+  const [now, setNow] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setNow(dayjs());
+      setNow(Date.now() - startTime);
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [startTime]);
 
   useEffect(() => {
     setInterval(() => {

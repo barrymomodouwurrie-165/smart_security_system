@@ -105,6 +105,17 @@ const SystemActions = ({ event, status }) => {
             <MdInsertDriveFile />
             <span className="text-sm font-mono">EVENT LOG</span>
           </div>
+          <div className="flex items-center justify-between gap-2 my-1">
+            <span className="text-sm font-mono font-bold text-base-content/70">
+              Time
+            </span>
+            <p className="font-bold text-sm text-base-content/70 flex-1 ml-5">
+              Event Messages
+            </p>
+            <span className="font-bold text-sm text-base-content/70">
+              Event Type
+            </span>
+          </div>
           {event &&
             event.map((item) => {
               return (
