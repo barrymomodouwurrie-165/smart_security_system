@@ -14,6 +14,18 @@ function App() {
   const [message, setMessage] = useState(
     "All sensors clear — no threats detected",
   );
+  const [countEvent, setCountEvent] = useState(0);
+
+  const getCount = useCallback(async () => {
+    const res = await axios.get("http://localhost:4000/api/event/count");
+    setCountEvent(res.data);
+  }, []);
+  useEffect(() => {
+    getCount();
+    const interval = setInterval(getCount, 3000);
+    return () => clearInterval(interval);
+  }, [getCount]);
+
   const getEventLogs = useCallback(async () => {
     try {
       const res = await axios.get("http://localhost:4000/api/event");
@@ -46,14 +58,19 @@ function App() {
   return (
     <div className="relative min-h-screen w-full h-full">
       <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_55%,#63e_120%)]"></div>
-     
+
       <AuthProvider>
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route
             path="/dashboard"
             element={
-              <Dashboard event={event} status={status} message={message} />
+              <Dashboard
+                event={event}
+                status={status}
+                message={message}
+                countEvent={countEvent}
+              />
             }
           />
           <Route path="/change-code" element={<ChangeCode />} />

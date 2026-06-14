@@ -8,7 +8,7 @@ import Sensors from "../Components/Sensors";
 import Status from "../Components/Status";
 import SystemActions from "../Components/SystemActions";
 
-const Dashboard = ({ event, status, message }) => {
+const Dashboard = ({ event, status, message, countEvent }) => {
   const { user } = useAuth();
   const [timeInMs, setTimeInMs] = useState(dayjs().valueOf());
   const [startTime] = useState(() => Date.now());
@@ -67,7 +67,7 @@ const Dashboard = ({ event, status, message }) => {
       <Status event={event} status={status} message={message} />
       <Sensors status={status} />
       <SystemActions event={event} status={status} />
-      <Footer now={now} />
+      <Footer now={now} countEvent={countEvent} />
     </div>
   );
 };
