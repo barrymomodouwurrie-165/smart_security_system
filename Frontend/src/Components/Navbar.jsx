@@ -4,7 +4,6 @@ import { useAuth } from "../useContext/userContext";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 
-
 const Navbar = ({ timeInMs }) => {
   const { handleLogout } = useAuth();
   dayjs.extend(advancedFormat);
@@ -25,9 +24,15 @@ const Navbar = ({ timeInMs }) => {
           </div>
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <p className="text-xs font-mono font-bold text-base-content/70">
-                {`Date:${dayjs(timeInMs).format("dddd, Do MMMM YYYY")} Time:${dayjs(timeInMs).format("HH:mm:ss [GMT]")}`}
-              </p>
+              <div className="flex flex-col gap-1 mx-2">
+                <p className=" text-xs font-mono font-bold text-base-content/70">
+                  {`Date: ${dayjs(timeInMs).format("dddd, Do MMMM YYYY")}`}
+                </p>
+                <p className=" text-xs font-mono font-bold text-base-content/70">
+                  {`Time: ${dayjs(timeInMs).format("HH:mm [GMT]")}`}
+                </p>
+              </div>
+
               <div className="flex items-center gap-1 bg-primary/30 border-primary border-solid border rounded-lg justify-center px-3 text-primary font-serif">
                 <MdFiberManualRecord
                   size={14}
