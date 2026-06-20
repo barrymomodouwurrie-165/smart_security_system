@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [confirmedPin, setConfirmedPin] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [pinId, setPinId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -54,7 +55,11 @@ export const AuthProvider = ({ children }) => {
   const handleLogout = async () => {
     if (!window.confirm("Are you sure you want to logout?")) return;
     try {
-      await axios.post("http://localhost:4000/api/user/logout");
+      await axios.post(
+        "http://localhost:4000/api/user/logout",
+        {},
+        { withCredentials: true },
+      );
       toast.success("Logged out successfully");
       setUser(null);
       localStorage.clear();
@@ -110,30 +115,30 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   const checkRefresh = async () => {
-  //     try {
-  //       const res = await axios.post(
-  //         "http://localhost:4000/api/user/refresh_token",
-  //         {},
-  //         { withCredentials: true },
-  //       );
-  //       if (res.data.accessToken) {
-  //         setUser({
-  //           ...res.data.safeUser,
-  //           accessToken: res.data.accessToken,
-  //         });
-  //       }
-  //     } catch (error) {
-  //       console.log({ error });
-  //       setUser(null);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   checkRefresh();
-  // }, []);
-  // if (loading) return null;
+  useEffect(() => {
+    const checkRefresh = async () => {
+      try {
+        const res = await axios.post(
+          "http://localhost:4000/api/user/refresh_token",
+          {},
+          { withCredentials: true },
+        );
+        if (res.data.accessToken) {
+          setUser({
+            ...res.data.safeUser,
+            accessToken: res.data.accessToken,
+          });
+        }
+      } catch (error) {
+        console.log({ error });
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkRefresh();
+  }, []);
+  if (loading) return null;
   return (
     <AuthContext.Provider
       value={{

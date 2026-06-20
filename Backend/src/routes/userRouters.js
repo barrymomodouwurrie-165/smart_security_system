@@ -113,9 +113,7 @@ router.post("/refresh_token", async (req, res) => {
   let payload = "";
   try {
     payload = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
-    console.log({ payload: payload });
     const user = await Code.findById(payload.id);
-    console.log({ user: user });
     if (!user || user.refreshToken !== token) {
       return res.send({ accessToken: "" });
     }
@@ -125,10 +123,10 @@ router.post("/refresh_token", async (req, res) => {
     return res
       .status(200)
       .cookie("refreshToken", refreshToken, {
-        httpOnly: true, 
-        path: "/refresh_token",
-        secure: true, 
-        sameSite: "strict",
+        httpOnly: true,
+        path: "/api/user/refresh_token",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
       })
       .json({ accessToken, safeUser });

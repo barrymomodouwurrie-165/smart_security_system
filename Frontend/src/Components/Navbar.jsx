@@ -16,7 +16,7 @@ const Navbar = ({ timeInMs }) => {
               <RiShieldKeyholeFill size={24} />
             </div>
             <div>
-              <h2 className="text-xl font-serif font-bold">SecureGuard</h2>
+              <h2 className="text-xl font-serif font-bold">IntelliGuard</h2>
               <p className="text-base-content/70 text-xs font-serif">
                 ESP32 SECURITY SYSTEM
               </p>

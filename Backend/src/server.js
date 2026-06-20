@@ -1,18 +1,20 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import { DB_connect } from "./config/db.js";
 import router from "./routes/userRouters.js";
-import eRouter from "./routes/eventRoutes.js"
+import eRouter from "./routes/eventRoutes.js";
 import cors from "cors";
 
 const app = express();
 dotenv.config();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://129.122.47.143:4000"],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   }),
